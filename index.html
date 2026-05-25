@@ -62,18 +62,6 @@
         .pulse-active {
             animation: pulse-soft 2s infinite;
         }
-        /* 語音聲波動畫 */
-        @keyframes wave-grow {
-            0%, 100% { height: 4px; }
-            50% { height: 24px; }
-        }
-        .wave-bar {
-            animation: wave-grow 1s ease-in-out infinite;
-        }
-        .wave-bar:nth-child(2) { animation-delay: 0.15s; }
-        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
-        .wave-bar:nth-child(4) { animation-delay: 0.45s; }
-        .wave-bar:nth-child(5) { animation-delay: 0.6s; }
     </style>
 </head>
 <body class="aurora-animate text-slate-100 min-h-screen pb-24 select-none">
@@ -438,162 +426,6 @@
         </button>
     </nav>
 
-    <!-- ---------------- [ 懸浮 AI 智能導遊按鈕 (FAB) ] ---------------- -->
-    <button onclick="toggleAIDrawer()" class="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-3 rounded-full shadow-lg shadow-emerald-500/30 flex items-center gap-1.5 font-bold text-xs hover:scale-105 active:scale-95 transition-all">
-        <span class="animate-pulse">✨</span> AI 導遊
-    </button>
-
-    <!-- ---------------- [ AI 導遊互動抽屜面版 (Drawer) ] ---------------- -->
-    <div id="ai-drawer" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end transition-opacity duration-300 opacity-0 pointer-events-none">
-        <!-- 點擊背景關閉 -->
-        <div class="absolute inset-0 z-0" onclick="toggleAIDrawer()"></div>
-        
-        <div class="bg-slate-900 border-t border-slate-800 rounded-t-3xl w-full max-w-md mx-auto h-[85vh] flex flex-col relative z-10 translate-y-full transition-transform duration-300 shadow-2xl" id="ai-drawer-content">
-            <!-- 頂部把手與關閉 -->
-            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800/60 flex-shrink-0">
-                <div class="flex items-center gap-2">
-                    <span class="text-xl">✨</span>
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-100">AI 智能語音導遊</h3>
-                        <p class="text-[10px] text-slate-400">基於 Gemini 2.5 雙引擎驅動</p>
-                    </div>
-                </div>
-                <button onclick="toggleAIDrawer()" class="p-1 hover:bg-slate-800 rounded-full text-slate-400 hover:text-slate-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-
-            <!-- 子功能分頁選單 -->
-            <div class="flex border-b border-slate-800/40 text-xs font-semibold text-slate-400 flex-shrink-0 bg-slate-950/40">
-                <button onclick="switchAIFeature('chat')" id="ai-tab-chat" class="flex-1 py-3 text-emerald-400 border-b-2 border-emerald-400">💬 ✨ 智慧問答</button>
-                <button onclick="switchAIFeature('audio')" id="ai-tab-audio" class="flex-1 py-3 border-b-2 border-transparent">🎙️ ✨ 語音導覽</button>
-                <button onclick="switchAIFeature('radar')" id="ai-tab-radar" class="flex-1 py-3 border-b-2 border-transparent">🗺️ ✨ 美食雷達</button>
-            </div>
-
-            <!-- ---------------- [ AI 智慧問答模組 ] ---------------- -->
-            <div id="ai-module-chat" class="flex-grow flex flex-col overflow-hidden">
-                <!-- 聊天訊息區 -->
-                <div id="ai-chat-messages" class="flex-grow overflow-y-auto p-4 space-y-4 no-scrollbar">
-                    <!-- 預設歡迎詞 -->
-                    <div class="flex gap-2.5 items-start">
-                        <div class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-sm flex-shrink-0">✨</div>
-                        <div class="bg-slate-800/70 text-xs text-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed border border-slate-800">
-                            哈囉！我是你們這次加拿大之旅的 ✨ <b>AI 專屬導遊</b>。我已經深度閱讀了你們 9/26~10/9 的所有行程、航班、以及 8 間飯店資料！
-                            <br><br>
-                            想知道極光怎麼拍、各景點穿搭穿著、或是任何行程細節？隨時問我！
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 快捷問答 Chips -->
-                <div class="px-4 py-2 flex gap-2 overflow-x-auto no-scrollbar border-t border-slate-800/40 bg-slate-950/20 flex-shrink-0">
-                    <button onclick="askPresetQuestion('10/5 去哥倫比亞冰原，穿著上有什麼建议？')" class="flex-shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/60 text-[10px] text-slate-300 rounded-full">🧥 冰原穿搭建議</button>
-                    <button onclick="askPresetQuestion('在黃刀鎮看極光，用手機或相機拍有什麼攝影秘訣？')" class="flex-shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/60 text-[10px] text-slate-300 rounded-full">🌌 極光攝影技巧</button>
-                    <button onclick="askPresetQuestion('溫哥華 Outlet 有什麼推薦必買？')" class="flex-shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/60 text-[10px] text-slate-300 rounded-full">🛍️ Outlet 購物攻略</button>
-                </div>
-
-                <!-- 聊天輸入框 -->
-                <div class="p-3 border-t border-slate-800 bg-slate-950 flex-shrink-0">
-                    <div class="flex gap-2 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 items-center focus-within:border-emerald-500 transition duration-150">
-                        <input type="text" id="ai-chat-input" placeholder="問問 AI 導遊..." class="bg-transparent border-none outline-none text-xs text-slate-100 flex-grow py-1">
-                        <button onclick="sendChatMessage()" class="p-1.5 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 rounded-lg transition duration-150 flex-shrink-0">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ---------------- [ AI 語音導覽模組 (Gemini TTS) ] ---------------- -->
-            <div id="ai-module-audio" class="flex-grow overflow-y-auto p-5 space-y-6 hidden no-scrollbar">
-                <div class="p-4 bg-emerald-950/20 border border-emerald-900/30 rounded-2xl">
-                    <h4 class="text-xs font-bold text-emerald-400">🎙️ ✨ 景點語音即時導航</h4>
-                    <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
-                        選擇想瞭解的目的地，Gemini AI 會為你量身打造一段 100 字的景點深度故事，並用語音合成朗讀給你聽！
-                    </p>
-                </div>
-
-                <!-- 選擇設定區 -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-[10px] text-slate-500 uppercase tracking-widest mb-1.5 font-bold">1. 選擇介紹目的地</label>
-                        <select id="tts-destination" class="w-full bg-slate-950 border border-slate-800 text-xs text-slate-100 rounded-xl px-3 py-3 outline-none focus:border-emerald-500">
-                            <option value="溫哥華史丹利公園與卡布蘭諾吊橋">🍁 溫哥華 (Stanley Park & 吊橋)</option>
-                            <option value="加拿大黃刀鎮與神奇的北極光傳說">🌌 黃刀鎮 (極光之都的故事)</option>
-                            <option value="班夫國家公園與硫磺山、夢蓮湖">🏔️ 班夫與落磯山脈 (Banff Town)</option>
-                            <option value="哥倫比亞萬年冰原與阿薩巴斯卡冰河">❄️ 哥倫比亞冰原 (Icefield Adventure)</option>
-                            <option value="美國西雅圖派克市場與星巴克創始店">🇺🇸 西雅圖快閃 (Pike Place)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] text-slate-500 uppercase tracking-widest mb-1.5 font-bold">2. 選擇 AI 導遊聲線</label>
-                        <select id="tts-voice" class="w-full bg-slate-950 border border-slate-800 text-xs text-slate-100 rounded-xl px-3 py-3 outline-none focus:border-emerald-500">
-                            <option value="Kore">👩‍🦰 Kore (清亮女聲 - 預設)</option>
-                            <option value="Leda">👩 Leda (溫柔知性女聲)</option>
-                            <option value="Puck">👨‍🦱 Puck (渾厚朝氣男聲)</option>
-                        </select>
-                    </div>
-
-                    <button onclick="generateAudioGuide()" id="btn-generate-audio" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10">
-                        🔊 ✨ 產生並朗讀語音導覽
-                    </button>
-                </div>
-
-                <!-- 播放器與聲波顯示 -->
-                <div id="audio-player-container" class="bg-slate-950/80 border border-slate-850 p-4 rounded-2xl hidden">
-                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">語音播放中...</p>
-                    <div class="flex items-center gap-4">
-                        <button id="btn-audio-play-pause" onclick="toggleAudioPlayback()" class="w-10 h-10 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center flex-shrink-0 shadow">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                        </button>
-                        <div class="flex-grow">
-                            <!-- 模擬聲波 -->
-                            <div class="flex items-center gap-1.5 h-8">
-                                <div class="w-1.5 bg-emerald-400 rounded-full wave-bar" style="height: 12px"></div>
-                                <div class="w-1.5 bg-emerald-400 rounded-full wave-bar" style="height: 24px"></div>
-                                <div class="w-1.5 bg-teal-400 rounded-full wave-bar" style="height: 18px"></div>
-                                <div class="w-1.5 bg-emerald-400 rounded-full wave-bar" style="height: 6px"></div>
-                                <div class="w-1.5 bg-teal-400 rounded-full wave-bar" style="height: 20px"></div>
-                                <div class="w-1.5 bg-emerald-400 rounded-full wave-bar" style="height: 14px"></div>
-                                <div class="w-1.5 bg-teal-400 rounded-full wave-bar" style="height: 8px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- AI 文字劇本 -->
-                    <div class="mt-4 p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-300 leading-relaxed max-h-32 overflow-y-auto no-scrollbar" id="audio-script-content">
-                        AI 導遊導覽劇本載入中...
-                    </div>
-                </div>
-            </div>
-
-            <!-- ---------------- [ AI 智能美食雷達模組 ] ---------------- -->
-            <div id="ai-module-radar" class="flex-grow overflow-y-auto p-5 space-y-4 hidden no-scrollbar">
-                <div class="p-4 bg-emerald-950/20 border border-emerald-900/30 rounded-2xl">
-                    <h4 class="text-xs font-bold text-emerald-400">🗺️ ✨ 當日私房美食雷達</h4>
-                    <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
-                        選取天數，Gemini 將根據當天行程所在的地理位置（溫哥華、黃刀鎮、班夫或卡加利等），即時搜尋或推演周邊極具特色的餐廳或咖啡廳！
-                    </p>
-                </div>
-
-                <div class="flex gap-2 items-center">
-                    <label class="text-xs text-slate-400 flex-shrink-0">選擇天數：</label>
-                    <select id="radar-day-select" class="flex-grow bg-slate-950 border border-slate-800 text-xs text-slate-100 rounded-xl px-3 py-2 outline-none">
-                        <!-- JS 動態生成選項 -->
-                    </select>
-                    <button onclick="getFoodRecommendations()" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 rounded-xl text-xs font-bold transition">
-                        🔍 搜尋
-                    </button>
-                </div>
-
-                <div id="radar-results" class="space-y-3 pt-2">
-                    <!-- 預設提示 -->
-                    <p class="text-center text-xs text-slate-500 py-8">點擊「搜尋」讓 AI 幫你們搜集最棒的私房餐廳！</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <!-- ---------------- [ 互動式彈出視窗：憑證預覽 ] ---------------- -->
     <div id="voucher-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transition-all scale-95 opacity-0 duration-300" id="modal-content">
@@ -616,12 +448,17 @@
                     </div>
                 </div>
                 <!-- 提示 -->
-                <div class="text-[10px] text-slate-500 mb-6 bg-slate-950 p-2.5 rounded-lg border border-slate-850">
-                    💡 這項行程的 PDF 檔（如上所述）已在行前通知手冊中。你可以在離線時開啟對應的 PDF 檔案快速核對！
+                <div class="text-[10px] text-slate-500 mb-4 bg-slate-950 p-2.5 rounded-lg border border-slate-850">
+                    💡 提示：請將對應的 PDF 檔案上傳到與本網頁相同的 GitHub / Vercel 資料夾根目錄中，點擊下方按鈕即可直接開啟！
                 </div>
-                <button onclick="copyFileName()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-xs rounded-xl transition duration-150 flex items-center justify-center gap-2">
-                    📋 複製檔名以供搜尋
-                </button>
+                <div class="space-y-2">
+                    <button onclick="openPDFFile()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-bold text-xs rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10">
+                        📂 直接在新分頁打開 PDF 憑證
+                    </button>
+                    <button onclick="copyFileName()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 active:scale-[0.98] text-slate-200 text-xs rounded-xl transition duration-150 flex items-center justify-center gap-2">
+                        📋 複製檔名以供搜尋
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -857,7 +694,6 @@
         // ---------------- [ 功能常數與變數 ] ----------------
         let currentDay = 1;
         let selectedVoucherFileName = "";
-        const apiKey = ""; // 執行時會自動代入密鑰
 
         // ---------------- [ 初始化網頁 ] ----------------
         window.onload = function() {
@@ -866,7 +702,6 @@
             renderDaySelectors();
             renderItinerary(1);
             initChecklist();
-            initAIDrawerOptions();
         };
 
         // ---------------- [ 1. 倒數計時功能 ] ----------------
@@ -961,7 +796,7 @@
                             <a href="tel:${hotel.phone}" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center justify-center gap-1">
                                 📞 撥打電話
                             </a>
-                            <button onclick="safeCopyText('${hotel.address}', '已複製地址！可直接貼上地圖導航')" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center justify-center gap-1">
+                            <button onclick="copyToClipboard('${hotel.address}', '已複製地址，可直接貼上地圖導航')" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center justify-center gap-1">
                                 🗺️ 複製地址
                             </button>
                             <button onclick="openHotelVoucher(${index})" class="py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1">
@@ -1098,31 +933,46 @@
             }, 300);
         }
 
-        function copyFileName() {
+        // ---------------- [ 新增：直接在新分頁開啟同路徑 PDF 檔案 ] ----------------
+        function openPDFFile() {
             if (!selectedVoucherFileName) return;
-            safeCopyText(selectedVoucherFileName, `已複製憑證檔名：${selectedVoucherFileName}`);
+            if (selectedVoucherFileName.includes("實體憑證")) {
+                showToast("此為極光套票，無獨立 PDF 檔！");
+                return;
+            }
+            // 直接以相對路徑在新視窗開啟同資料夾下的 PDF 
+            window.open(selectedVoucherFileName, '_blank');
         }
 
-        // ---------------- [ 6. 安全剪貼簿複製 (相容 iFrame) ] ----------------
-        function safeCopyText(text, successMessage) {
+        // ---------------- [ 剪貼簿複製：相容 iframe 環境 ] ----------------
+        function copyToClipboard(text, successMessage) {
             const textarea = document.createElement("textarea");
             textarea.value = text;
             textarea.style.position = "fixed";
-            textarea.style.top = "0";
-            textarea.style.left = "0";
             textarea.style.opacity = "0";
             document.body.appendChild(textarea);
             textarea.select();
+            
             try {
-                document.execCommand("copy");
-                showToast(successMessage);
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast(successMessage);
+                } else {
+                    showToast("複製失敗，請手動複製");
+                }
             } catch (err) {
                 showToast("複製失敗，請手動複製");
             }
+            
             document.body.removeChild(textarea);
         }
 
-        // ---------------- [ 7. 互動打包清單控制 ] ----------------
+        function copyFileName() {
+            if (!selectedVoucherFileName) return;
+            copyToClipboard(selectedVoucherFileName, `已複製憑證檔名：${selectedVoucherFileName}`);
+        }
+
+        // ---------------- [ 6. 互動打包清單控制 ] ----------------
         function initChecklist() {
             renderChecklistGroup("checklist-docs", docChecklist);
             renderChecklistGroup("checklist-electronics", electroChecklist);
@@ -1179,7 +1029,7 @@
             document.getElementById("checklist-progress-bar").style.width = `${percent}%`;
         }
 
-        // ---------------- [ 8. Toast 提示 ] ----------------
+        // ---------------- [ 7. Toast 提示提示 ] ----------------
         function showToast(message) {
             const toast = document.getElementById("toast");
             document.getElementById("toast-text").innerText = message;
@@ -1190,415 +1040,6 @@
                 toast.classList.remove("opacity-100");
                 toast.classList.add("opacity-0");
             }, 2500);
-        }
-
-        // =========================================================================
-        // ======================= [ 🤖 GEMINI API 核心程式碼 ] ======================
-        // =========================================================================
-
-        // 指令注入：提供本次旅行的完整上下文給 Gemini
-        const systemPrompt = `你是一位專業的加拿大自駕與極光導遊，熟知 2026 年「加拿大極光 & 班夫之旅」的所有行程細節。
-        以下是本次旅行的真實背景資訊：
-        
-        【出發時間與長度】：2026.09.26 - 2026.10.09 (共 14 天)
-        
-        【航班資訊】：
-        - 9/26: 台北(TPE) 13:20 起飛 -> 16:50 抵達首爾(ICN) (大韓航空 KE2022)
-        - 9/26: 首爾(ICN) 18:45 起飛 -> 12:35 抵達溫哥華(YVR) (大韓航空 KE071)
-        - 9/29: 溫哥華(YVR) 14:55 起飛 -> 18:25 抵達黃刀鎮(YZF) (北方航空 4N869)
-        - 10/2: 黃刀鎮(YZF) 06:45 起飛 -> 09:25 抵達卡加利(YYC) (西捷航空 WS3290)
-        - 10/7: 卡加利(YYC) 17:50 出發 -> 18:45 抵達西雅圖(SEA) (西捷航空 WS1552)
-        - 10/9: 西雅圖(SEA) 01:15 出發 -> 10/10 04:55 抵達台北(TPE) (星宇航空 JX31)
-        
-        【住宿資訊】：
-        - 9/26~9/29 (3晚): 溫哥華 Century Plaza Hotel
-        - 9/29~10/2 (3晚): 黃刀鎮 Nova Inn
-        - 10/2~10/3 (1晚): Canmore Basecamp Lodge
-        - 10/3~10/4 (1晚): Banff Town Banff Aspen Lodge
-        - 10/4~10/5 (1晚): Lake Louise Lake Louise Inn
-        - 10/5~10/6 (1晚): Canmore Northwinds Hotel Canmore
-        - 10/6~10/7 (1晚): Calgary Hotel 11
-        - 10/7~10/8 (1晚): Seattle Crowne Plaza Seattle
-        
-        【每日行程大綱】：
-        - DAY 1 (9/26): 溫哥華市區 (Outlet、羅伯森街、煤氣鎮、加拿大廣場夜景)
-        - DAY 2 (9/27): 溫哥華 (史丹利公園騎單車、固蘭湖島吃美食與手工藝)
-        - DAY 3 (9/28): 溫哥華 (卡布蘭諾吊橋公園、北溫 Lower Lonsdale 歷史老街)
-        - DAY 4 (9/29): 前往黃刀鎮 (晚上追第一天極光)
-        - DAY 5 (9/30): 黃刀鎮 (白天老城區、晚上追第二天極光)
-        - DAY 6 (10/1): 黃刀鎮 (白天悠閒散步、晚上追第三天極光)
-        - DAY 7 (10/2): 抵達落磯山脈卡加利機場，自駕租車 (SIXT) 前往 Canmore 入住 Basecamp Lodge
-        - DAY 8 (10/3): 班夫小鎮 (班夫纜車、硫磺山步道、驚奇角、時光瀑布花園)
-        - DAY 9 (10/4): 夢蓮湖 (Moraine Lake) & 路易絲湖 (Lake Louise) 經典雙湖公路絕景
-        - DAY 10 (10/5): 哥倫比亞冰原天空步道 & 冰原巨輪雪車，下午拜訪弓湖與佩托湖
-        - DAY 11 (10/6): 班夫周邊最後巡禮與輕鬆徒步，晚上回到卡加利
-        - DAY 12 (10/7): 卡加利市區巡禮 -> 14:30 還車 -> 飛往西雅圖 -> 輕軌直達西雅圖市區
-        - DAY 13 (10/8): 西雅圖市區快閃 (派克市場、第一家星巴克、太空針塔、半夜星宇航空返台)
-        
-        請根據以上行程架構熱情、詳盡且實用地回答使用者的問題。
-        注意事項：
-        1. 回答請一律使用繁體中文(Traditional Chinese)。
-        2. 語氣要像資深專業導遊一樣，貼心幽默、充滿人情味。
-        3. 如果遇到行程中沒有提及的景點或詢問，請提醒對方「這不在我們這次的行程中，但如果你有興趣...」。`;
-
-        // 指數退避重試機制的 API 請求函數
-        async function callGeminiAPIWithRetry(url, payload, retries = 5, delay = 1000) {
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (response.ok) {
-                        return await response.json();
-                    }
-                } catch (e) {
-                    // 靜默重試，不輸出 console.log
-                }
-                await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2; // 指數遞增延遲時間
-            }
-            throw new Error("連線失敗，請檢查網路或稍後再試。");
-        }
-
-        // 開關 AI Drawer 抽屜
-        function toggleAIDrawer() {
-            const drawer = document.getElementById("ai-drawer");
-            const content = document.getElementById("ai-drawer-content");
-
-            if (drawer.classList.contains("pointer-events-none")) {
-                drawer.classList.remove("pointer-events-none", "opacity-0");
-                drawer.classList.add("opacity-100");
-                content.classList.remove("translate-y-full");
-                content.classList.add("translate-y-0");
-            } else {
-                drawer.classList.add("pointer-events-none", "opacity-0");
-                drawer.classList.remove("opacity-100");
-                content.classList.remove("translate-y-0");
-                content.classList.add("translate-y-full");
-                // 關閉時停止正在播放的語音
-                if (currentAudio) {
-                    currentAudio.pause();
-                    document.getElementById("audio-player-container").classList.add("hidden");
-                }
-            }
-        }
-
-        // 切換 AI 面板中的子功能分頁
-        function switchAIFeature(featureId) {
-            // 隱藏所有 AI 模組
-            document.getElementById("ai-module-chat").classList.add("hidden");
-            document.getElementById("ai-module-audio").classList.add("hidden");
-            document.getElementById("ai-module-radar").classList.add("hidden");
-
-            // 取消所有 tab 樣式
-            document.querySelectorAll("#ai-drawer button[id^='ai-tab-']").forEach(btn => {
-                btn.classList.remove("text-emerald-400", "border-emerald-400");
-                btn.classList.add("border-transparent");
-            });
-
-            // 顯示與啟用選取分頁
-            document.getElementById(`ai-module-${featureId}`).classList.remove("hidden");
-            document.getElementById(`ai-tab-${featureId}`).classList.add("text-emerald-400", "border-emerald-400");
-        }
-
-        // 初始化 AI Drawer 的選項
-        function initAIDrawerOptions() {
-            const select = document.getElementById("radar-day-select");
-            select.innerHTML = "";
-            for (let d = 1; d <= 13; d++) {
-                const opt = document.createElement("option");
-                opt.value = d;
-                opt.innerText = `第 ${d} 天 - ${itineraryData[d].title.split(":")[1].trim()}`;
-                select.appendChild(opt);
-            }
-        }
-
-        // ---------------- [ 模組 A：AI 智慧問答 ] ----------------
-        async function sendChatMessage() {
-            const input = document.getElementById("ai-chat-input");
-            const query = input.value.trim();
-            if (!query) return;
-
-            appendChatMessage("user", query);
-            input.value = "";
-
-            // 顯示 loading 泡泡
-            const loadingId = appendChatMessage("ai", "✨ 導遊正在為您規劃解答...");
-
-            const apiURL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: query }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            };
-
-            try {
-                const data = await callGeminiAPIWithRetry(apiURL, payload);
-                const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "抱歉，導遊這一下發呆了，請再試試！";
-                
-                // 移除 loading 泡泡並插入真實回答
-                document.getElementById(loadingId).remove();
-                appendChatMessage("ai", replyText);
-            } catch (err) {
-                document.getElementById(loadingId).remove();
-                appendChatMessage("ai", `❌ 發生問題了：${err.message}`);
-            }
-        }
-
-        function askPresetQuestion(question) {
-            document.getElementById("ai-chat-input").value = question;
-            sendChatMessage();
-        }
-
-        function appendChatMessage(sender, text) {
-            const container = document.getElementById("ai-chat-messages");
-            const msgId = "chat-msg-" + Date.now() + Math.random().toString(36).substring(2, 7);
-
-            const div = document.createElement("div");
-            div.id = msgId;
-            div.className = "flex gap-2.5 items-start " + (sender === "user" ? "justify-end" : "");
-
-            if (sender === "user") {
-                div.innerHTML = `
-                    <div class="bg-emerald-500 text-slate-950 text-xs p-3 rounded-2xl rounded-tr-none max-w-[85%] leading-relaxed font-medium">
-                        ${text.replace(/\n/g, '<br>')}
-                    </div>
-                `;
-            } else {
-                div.innerHTML = `
-                    <div class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-sm flex-shrink-0">✨</div>
-                    <div class="bg-slate-800/70 text-xs text-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed border border-slate-800">
-                        ${text.replace(/\n/g, '<br>')}
-                    </div>
-                `;
-            }
-
-            container.appendChild(div);
-            // 滾動到底部
-            container.scrollTop = container.scrollHeight;
-            return msgId;
-        }
-
-        // 按 Enter 即可傳送訊息
-        document.getElementById("ai-chat-input").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-                sendChatMessage();
-            }
-        });
-
-
-        // ---------------- [ 模組 B：AI 語音導覽 (Gemini TTS) ] ----------------
-        let currentAudio = null;
-
-        async function generateAudioGuide() {
-            const dest = document.getElementById("tts-destination").value;
-            const voice = document.getElementById("tts-voice").value;
-            const btn = document.getElementById("btn-generate-audio");
-            const playerContainer = document.getElementById("audio-player-container");
-            const scriptBox = document.getElementById("audio-script-content");
-
-            btn.disabled = true;
-            btn.innerHTML = `<span class="animate-spin mr-2">⚙️</span> 導遊正在準備劇本與錄音...`;
-            playerContainer.classList.add("hidden");
-
-            // 停止舊語音
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-
-            // 步驟 1：先使用 Gemini Flash 生成一段 120 字內的超生動在地導覽簡述
-            const textURL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const textPayload = {
-                contents: [{ parts: [{ text: `請幫我們寫一段專門給 2026 年去加拿大的朋友聽的景點導覽廣播詞。主題是：【${dest}】。內容必須熱情有活力，字數必須在 100 字到 120 字之內。必須全部使用繁體中文(Taiwan Traditional Chinese)。` }] }]
-            };
-
-            try {
-                const textData = await callGeminiAPIWithRetry(textURL, textPayload);
-                const guideText = textData.candidates?.[0]?.content?.parts?.[0]?.text || "哈囉大家！歡迎來到我們期待已久的加拿大落磯山脈之旅！";
-                scriptBox.innerText = guideText;
-
-                // 步驟 2：使用 Gemini TTS API 把這段話合成專屬語音
-                const ttsURL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-                const ttsPayload = {
-                    contents: [{ parts: [{ text: `Say cheerfully and professionally in Taiwan Traditional Chinese: ${guideText}` }] }],
-                    generationConfig: {
-                        responseModalities: ["AUDIO"],
-                        speechConfig: {
-                            voiceConfig: {
-                                prebuiltVoiceConfig: {
-                                    voiceName: voice
-                                }
-                            }
-                        }
-                    }
-                };
-
-                const ttsData = await callGeminiAPIWithRetry(ttsURL, ttsPayload);
-                const rawAudioBase64 = ttsData.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-
-                if (!rawAudioBase64) {
-                    throw new Error("未能成功生成語音訊號。");
-                }
-
-                // 轉換 PCM16 為播放用 WAV
-                const wavUrl = pcmToWav(rawAudioBase64, 24000);
-                
-                // 播放語音
-                currentAudio = new Audio(wavUrl);
-                currentAudio.play();
-
-                playerContainer.classList.remove("hidden");
-                document.getElementById("btn-audio-play-pause").innerHTML = `
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                `;
-
-                // 播放結束監聽
-                currentAudio.onended = () => {
-                    document.getElementById("btn-audio-play-pause").innerHTML = `
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    `;
-                };
-
-            } catch (err) {
-                showToast(`語音導航生成失敗: ${err.message}`);
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `🔊 ✨ 產生並朗讀語音導覽`;
-            }
-        }
-
-        function toggleAudioPlayback() {
-            if (!currentAudio) return;
-            const btn = document.getElementById("btn-audio-play-pause");
-
-            if (currentAudio.paused) {
-                currentAudio.play();
-                btn.innerHTML = `
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                `;
-            } else {
-                currentAudio.pause();
-                btn.innerHTML = `
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                `;
-            }
-        }
-
-        // PCM 位元流轉 WAV 檔案的 helper
-        function pcmToWav(pcmBase64, sampleRate = 24000) {
-            const binaryString = window.atob(pcmBase64);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            const buffer = bytes.buffer;
-
-            // 建立 44 位元組的標準 WAV 檔頭
-            const wavHeader = new ArrayBuffer(44);
-            const view = new DataView(wavHeader);
-            
-            view.setUint32(0, 0x46464952, true); // "RIFF"
-            view.setUint32(4, 36 + buffer.byteLength, true); // 檔案大小 - 8
-            view.setUint32(8, 0x45564157, true); // "WAVE"
-            view.setUint32(12, 0x20746d66, true); // "fmt " 區塊
-            view.setUint32(16, 16, true); // 區塊長度 (16)
-            view.setUint16(20, 1, true); // 音訊格式 (PCM = 1)
-            view.setUint16(22, 1, true); // 聲道數 (1 = 單聲道)
-            view.setUint32(24, sampleRate, true); // 取樣率
-            view.setUint32(28, sampleRate * 2, true); // 每秒位元組數 (sampleRate * blockAlign)
-            view.setUint16(32, 2, true); // 區塊對齊 (聲道數 * 每取樣位元組數)
-            view.setUint16(34, 16, true); // 每取樣位元 (16 bits)
-            view.setUint32(36, 0x61746164, true); // "data" 區塊
-            view.setUint32(40, buffer.byteLength, true); // 音訊長度
-            
-            const blob = new Blob([wavHeader, buffer], { type: 'audio/wav' });
-            return URL.createObjectURL(blob);
-        }
-
-
-        // ---------------- [ 模組 C：AI 智能美食雷達 ] ----------------
-        async function getFoodRecommendations() {
-            const dayNum = document.getElementById("radar-day-select").value;
-            const resultsBox = document.getElementById("radar-results");
-
-            resultsBox.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-12 text-slate-400">
-                    <span class="animate-spin text-xl mb-3">🧭</span>
-                    <p class="text-xs">AI 正在雷達搜尋周邊美食，請稍候...</p>
-                </div>
-            `;
-
-            const dayData = itineraryData[dayNum];
-            if (!dayData) return;
-
-            const apiURL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            
-            // 請求結構：使用 Structured JSON Response 確保資料極致清晰整齊
-            const payload = {
-                contents: [{ parts: [{ text: `請為第 ${dayNum} 天【${dayData.title}】行程中的目的地，推薦 3 個極受歡迎的私房美食、特色餐廳或咖啡廳。必須完全繁體中文。請以指定 JSON 物件結構回傳。` }] }],
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "OBJECT",
-                        properties: {
-                            recommendations: {
-                                type: "ARRAY",
-                                items: {
-                                    type: "OBJECT",
-                                    properties: {
-                                        name: { type: "STRING" },
-                                        type: { type: "STRING" },
-                                        reason: { type: "STRING" },
-                                        budget: { type: "STRING" }
-                                    },
-                                    required: ["name", "type", "reason", "budget"]
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            try {
-                const data = await callGeminiAPIWithRetry(apiURL, payload);
-                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                const parsed = JSON.parse(responseText);
-
-                if (!parsed.recommendations || parsed.recommendations.length === 0) {
-                    throw new Error("無可用推薦");
-                }
-
-                let cardsHTML = "";
-                parsed.recommendations.forEach(rec => {
-                    cardsHTML += `
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <span class="px-1.5 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] rounded font-bold">${rec.type}</span>
-                                    <h4 class="text-sm font-bold text-slate-200 mt-1">${rec.name}</h4>
-                                </div>
-                                <span class="text-xs text-amber-400 font-semibold">${rec.budget}</span>
-                            </div>
-                            <p class="text-xs text-slate-400 leading-relaxed pt-1 border-t border-slate-900">${rec.reason}</p>
-                            <button onclick="safeCopyText('${rec.name}', '已複製店名，可至 Google Maps 搜尋導航！')" class="text-[10px] text-emerald-400 hover:underline pt-1 flex items-center gap-1">
-                                🗺️ 複製店名去搜尋 ➔
-                            </button>
-                        </div>
-                    `;
-                });
-
-                resultsBox.innerHTML = cardsHTML;
-
-            } catch (err) {
-                resultsBox.innerHTML = `
-                    <div class="p-4 bg-rose-950/20 border border-rose-900/30 rounded-xl text-center text-xs text-rose-400">
-                        😢 哎呀！雷達似乎受到了落磯山電離層干擾。請再點擊一次搜尋看看！
-                    </div>
-                `;
-            }
         }
     </script>
 </body>
