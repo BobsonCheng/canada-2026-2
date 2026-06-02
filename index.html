@@ -468,7 +468,9 @@
         <span>✓</span> <span id="toast-text">複製成功</span>
     </div>
 
+    <!-- ---------------- [ 所有的 JS 邏輯改至最底部載入，確保 DOM 樹安全解析 ] ---------------- -->
     <script>
+        // ---------------- [ 資料結構定義 ] ----------------
         const hotelsData = [
             {
                 dates: "9/26 ~ 9/29 (3晚)",
@@ -484,7 +486,7 @@
                 dates: "9/29 ~ 10/2 (3晚)",
                 city: "Yellowknife",
                 name: "Nova Inn Yellowknife",
-                address: "4401 Franklin Ave 3rd Floor, Yellowknife, NT X1A 2L9加拿大",
+                address: "4701 Franklin Ave, Yellowknife, NT X1A 2N8",
                 phone: "+18678739700",
                 voucherType: "極光團-星辰之旅 (Morning Star Travel)",
                 cancelPolicy: "極光套裝含住宿",
@@ -493,8 +495,8 @@
             {
                 dates: "10/2 ~ 10/3 (1晚)",
                 city: "Canmore",
-                name: "Basecamp Lodge Canmore",
-                address: "1002 Bow Valley Trl, Canmore, AB T1W 1N6加拿大",
+                name: "大本營小屋 (Basecamp Lodge)",
+                address: "1002 Bow Valley Trail, Canmore, AB T1W 1N6",
                 phone: "+15878076266",
                 voucherType: "Agoda",
                 cancelPolicy: "9/27前可取消",
@@ -513,8 +515,8 @@
             {
                 dates: "10/4 ~ 10/5 (1晚)",
                 city: "Lake Louise",
-                name: "Lake Louise Inn",
-                address: "210 Village Rd, Lake Louise, AB T0L 1E0加拿大",
+                name: "路易絲湖飯店 (Lake Louise Inn)",
+                address: "210 Village Rd, Lake Louise, AB T0L 1E0",
                 phone: "+18006619237",
                 voucherType: "Trip",
                 cancelPolicy: "9/20前可取消",
@@ -525,7 +527,7 @@
                 city: "Canmore",
                 name: "Northwinds Hotel Canmore",
                 address: "1402 Bow Valley Trail, Canmore, AB T1W 1N5",
-                phone: "+14036785488",
+                phone: "+14037624401", 
                 voucherType: "Agoda",
                 cancelPolicy: "9/29前可取消",
                 voucherFile: "Confirmation_for_Booking_ID 1726782814.pdf"
@@ -557,84 +559,84 @@
                 title: "DAY 1 (9/26): 溫哥華",
                 desc: "初探美加西岸，享受溫哥華港灣夜色",
                 items: [
-                    { time: "下午", act: "🛍️ McArthurGlen Designer Outlet 逛街", tip: "交通：搭 Canada Line（2站 4分鐘）YVR-Airport ➔ Templeton", url: "https://maps.app.goo.gl/6VtpGYsmLxvfDVnu7" },
-                    { time: "傍晚", act: "🏨 飯店 Check-in 辦理入住", tip: "交通：搭 Canada Line 到 Yaletown-Roundhouse 再步行 14 分鐘到 Century Plaza Hotel", url: "https://maps.app.goo.gl/uBsU6ap1nsRLKxKA6" },
-                    { time: "晚上", act: "🌃 羅伯森街 (Robson Street) 與 煤氣鎮 (Gastown) 散步", tip: "必看：煤氣鎮經典蒸汽鐘", url: "https://maps.app.goo.gl/uUUYtNw3SPoM52kQA" },
-                    { time: "夜間", act: "📸 加拿大廣場 (Canada Place) 海港夜景", tip: "第一天早點休息適應時差！", url: "https://maps.app.goo.gl/12AztF6gnjk2MDqr9" }
+                    { time: "下午", act: "🛍️ McArthurGlen Designer Outlet 逛街", tip: "交通：搭 Canada Line（2站 4分鐘）YVR-Airport ➔ Templeton", url: "https://www.google.com/maps/search/?api=1&query=McArthurGlen+Designer+Outlet+Vancouver" },
+                    { time: "傍晚", act: "🏨 飯店 Check-in 辦理入住", tip: "交通：搭 Canada Line 到 Yaletown-Roundhouse 再步行 14 分鐘到 Century Plaza Hotel", url: "https://www.google.com/maps/search/?api=1&query=Century+Plaza+Hotel+Vancouver" },
+                    { time: "晚上", act: "🌃 羅伯森街 (Robson Street) 與 煤氣鎮 (Gastown) 散步", tip: "必看：煤氣鎮經典蒸汽鐘", url: "https://www.google.com/maps/search/?api=1&query=Gastown+Steam+Clock+Vancouver" },
+                    { time: "夜間", act: "📸 加拿大廣場 (Canada Place) 海港夜景", tip: "第一天早點休息適應時差！", url: "https://www.google.com/maps/search/?api=1&query=Canada+Place+Vancouver" }
                 ]
             },
             2: {
                 title: "DAY 2 (9/27): 溫哥華",
                 desc: "體驗溫哥華最美自行車道與文青市集",
                 items: [
-                    { time: "09:00", act: "🚲 史丹利公園 (Stanley Park) 單車環繞", tip: "租借單車環繞海堤步道 (Seawall)。交通公車：WB W Georgia St @ Denman St", url: "https://maps.app.goo.gl/6FFoMgLHTQZrftkeA" },
-                    { time: "13:00", act: "🦞 固蘭湖島 (Granville Island) 探索與午餐", tip: "推薦搭乘可愛的小渡輪 (Aquabus)。在 Public Market 享用在地美食與探索精緻手工藝品", url: "https://maps.app.goo.gl/pJ2NxUdAb1q8aL5h8" }
+                    { time: "09:00", act: "🚲 史丹利公園 (Stanley Park) 單車環繞", tip: "租借單車環繞海堤步道 (Seawall)。交通公車：WB W Georgia St @ Denman St", url: "https://www.google.com/maps/search/?api=1&query=Stanley+Park+Vancouver" },
+                    { time: "13:00", act: "🦞 固蘭湖島 (Granville Island) 探索與午餐", tip: "推薦搭乘可愛的小渡輪 (Aquabus)。在 Public Market 享用在地美食與探索精緻手工藝品", url: "https://www.google.com/maps/search/?api=1&query=Granville+Island+Public+Market" }
                 ]
             },
             3: {
                 title: "DAY 3 (9/28): 溫哥華",
                 desc: "挑戰吊橋森林漫步與北溫老街探險",
                 items: [
-                    { time: "09:00", act: "🌉 卡布蘭諾吊橋公園 (Capilano Suspension Bridge)", tip: "接駁車：在 Canada Place 乘搭免費接駁專車前往", url: "https://maps.app.goo.gl/BdbYUa9VyhXLiKT98" },
-                    { time: "13:00", act: "⚓ Lonsdale Quay Market & Lower Lonsdale - The Shipyards", tip: "北溫歷史街區步道與免費美術館。交通：搭乘 SeaBus 渡輪返回市區", url: "https://maps.app.goo.gl/8bJchPBUmXsRMCbk7" }
+                    { time: "09:00", act: "🌉 卡布蘭諾吊橋公園 (Capilano Suspension Bridge)", tip: "接駁車：在 Canada Place 乘搭免費接駁專車前往", url: "https://www.google.com/maps/search/?api=1&query=Capilano+Suspension+Bridge+Park" },
+                    { time: "13:00", act: "⚓ Lonsdale Quay Market & Lower Lonsdale - The Shipyards", tip: "北溫歷史街區步道與免費美術館。交通：搭乘 SeaBus 渡輪返回市區", url: "https://www.google.com/maps/search/?api=1&query=Lonsdale+Quay+Market" }
                 ]
             },
             4: {
                 title: "DAY 4 (9/29): 黃刀鎮 (極光 Day 1)",
                 desc: "飛向北極光之都，首晚夜空浪漫邂逅",
                 items: [
-                    { time: "12:00", act: "🚇 出發前往機場", tip: "交通：搭乘 Canada Line 快線 (Vancouver City Centre ➔ YVR-Airport) 共 11 站，車程約 25 分鐘", url: "https://maps.app.goo.gl/oN3guCgLCdG8kTDw9" },
-                    { time: "14:55", act: "✈️ 搭機前往黃刀鎮", tip: "搭乘北方航空 4N869，預計 18:25 抵達 YZF，隨後入住 Nova Inn", url: "https://maps.app.goo.gl/uC6hzMy48twoyZkW8" },
-                    { time: "晚上", act: "🌌 展開第一夜極光觀測", tip: "期待極光指數大爆發！", url: "https://www.google.com/maps/search/?api=1&query=Yellowknife+Aurora" }
+                    { time: "12:00", act: "🚇 出發前往機場", tip: "交通：搭乘 Canada Line 快線 (Vancouver City Centre ➔ YVR-Airport) 共 11 站，車程約 25 分鐘", url: "https://www.google.com/maps/search/?api=1&query=YVR-Airport+Station" },
+                    { time: "14:55", act: "✈️ 搭機前往黃刀鎮", tip: "搭乘北方航空 4N869，預計 18:25 抵達 YZF，隨後入住 Nova Inn", url: "https://www.google.com/maps/search/?api=1&query=Nova+Inn+Yellowknife" },
+                    { time: "晚上", act: "🌌 展開第一夜極光觀測", tip: "期待極光指數大爆發！", url: "https://www.google.com/maps/search/?api=1&query=Yellowknife+NT" }
                 ]
             },
             5: {
                 title: "DAY 5 (9/30): 黃刀鎮 (極光 Day 2)",
                 desc: "極光追尋第二晚與經典市區景點巡禮",
                 items: [
-                    { time: "白天", act: "❄️ 黃刀鎮老城區探索、購買紀念品", tip: "可以到極光遊客中心領取極光證書與黃刀小別針", url: "https://www.google.com/maps/search/?api=1&query=Yellowknife+Visitor+Centre" },
-                    { time: "晚上", act: "🌌 第二夜極光團觀測", tip: "搭配星辰之旅 (Morning Star Travel)", url: "https://maps.app.goo.gl/uC6hzMy48twoyZkW8" }
+                    { time: "白天", act: "❄️ 黃刀鎮老城區探索、購買紀念品", tip: "可以到極光遊客中心領取極光證書與黃刀小別針", url: "https://www.google.com/maps/search/?api=1&query=Old+Town+Yellowknife" },
+                    { time: "晚上", act: "🌌 第二夜極光團觀測", tip: "搭配星辰之旅 (Morning Star Travel)", url: "https://www.google.com/maps/search/?api=1&query=Yellowknife+NT" }
                 ]
             },
             6: {
                 title: "DAY 6 (10/1): 黃刀鎮 (極光 Day 3)",
                 desc: "最後一晚極光機會，不留遺憾",
                 items: [
-                    { time: "白天", act: "☕ 當地網美咖啡館放鬆、散步", tip: "好好睡個飽，儲備體力追最後一晚極光！", url: "https://www.google.com/maps/search/?api=1&query=Old+Town+Yellowknife+Coffee" },
-                    { time: "晚上", act: "🌌 第三夜極光最終回", tip: "預備保暖，相機腳架必備", url: "https://www.google.com/maps/search/?api=1&query=Yellowknife+Aurora" }
+                    { time: "白天", act: "☕ 當地網美咖啡館放鬆、散步", tip: "好好睡個飽，儲備體力追最後一晚極光！", url: "https://www.google.com/maps/search/?api=1&query=Old+Town+Yellowknife" },
+                    { time: "晚上", act: "🌌 第三夜極光最終回", tip: "預備保暖，相機腳架必備", url: "https://www.google.com/maps/search/?api=1&query=Yellowknife+NT" }
                 ]
             },
             7: {
                 title: "DAY 7 (10/2): 坎莫爾",
                 desc: "啟程前往落磯山脈，取車自駕行",
                 items: [
-                    { time: "06:45", act: "✈️ 飛往卡加利 (YYC)", tip: "早班機 WS3290。預計 09:25 抵達", url: "https://maps.app.goo.gl/ggVS5ozqeBnnCn779" },
-                    { time: "上午", act: "🚗 卡加利機場 SIXT 櫃檯取車", tip: "自駕探險啟動，前往坎莫爾大本營小屋飯店", url: "https://maps.app.goo.gl/kNMFuAo3fh7FVtzW8" },
-                    { time: "下午", act: "🏞️ Canmore 坎莫爾小鎮散步與採買物資", tip: "入住 Basecamp Lodge", url: "https://maps.app.goo.gl/aDfWStrY3xZqEZsW7" }
+                    { time: "06:45", act: "✈️ 飛往卡加利 (YYC)", tip: "早班機 WS3290。預計 09:25 抵達", url: "https://www.google.com/maps/search/?api=1&query=Calgary+International+Airport+YYC" },
+                    { time: "上午", act: "🚗 卡加利機場 SIXT 櫃檯取車", tip: "自駕探險啟動，前往坎莫爾大本營小屋飯店", url: "https://www.google.com/maps/search/?api=1&query=SIXT+Rent+A+Car+Calgary+Airport" },
+                    { time: "下午", act: "🏞️ Canmore 坎莫爾小鎮散步與採買物資", tip: "入住 Basecamp Lodge", url: "https://www.google.com/maps/search/?api=1&query=Basecamp+Lodge+Canmore" }
                 ]
             },
             8: {
                 title: "DAY 8 (10/3): 班夫小鎮",
                 desc: "搭纜車眺望宏偉山峰，漫步經典歐風街區",
                 items: [
-                    { time: "上午", act: "🚠 班夫纜車 (Banff Gondola) & 硫磺山步道", tip: "登上觀景台 360 度俯瞰六大山脈", url: "https://maps.app.goo.gl/iaCwVySue6d9igrKA" },
-                    { time: "下午", act: "🌹 時光瀑布花園 ➔ 驚奇角 ➔ 班夫大道逛街", tip: "Cascade of Time Garden 與 Surprise Corner 拍照極美，晚上入住 Banff Aspen Lodge", url: "https://maps.app.goo.gl/vKjatTnCSvpADhMZ8" }
+                    { time: "上午", act: "🚠 班夫纜車 (Banff Gondola) & 硫磺山步道", tip: "登上觀景台 360 度俯瞰六大山脈", url: "https://www.google.com/maps/search/?api=1&query=Banff+Gondola" },
+                    { time: "下午", act: "🌹 時光瀑布花園 ➔ 驚奇角 ➔ 班夫大道逛街", tip: "Cascade of Time Garden 與 Surprise Corner 拍照極美，晚上入住 Banff Aspen Lodge", url: "https://www.google.com/maps/search/?api=1&query=Surprise+Corner+Banff" }
                 ]
             },
             9: {
                 title: "DAY 9 (10/4): 夢蓮湖 & 路易絲湖",
                 desc: "雙湖公路經典絕景，入住路易絲湖畔",
                 items: [
-                    { time: "08:45", act: "🚍 Park and Ride 接駁車至夢蓮湖 (Moraine Lake)", tip: "接駁車 Check-in 時間為 10:00，欣賞無與倫比的牛奶藍湖水", url: "https://maps.app.goo.gl/996Tcqh5oAGGybFFA" },
-                    { time: "下午", act: "❄️ 路易絲湖 (Lake Louise) 湖畔悠閒漫步", tip: "湖光山色盡收眼底，晚上入住 Lake Louise Inn", url: "https://maps.app.goo.gl/cPfQHSZzTe6qGDdy8" }
+                    { time: "08:45", act: "🚍 Park and Ride 接駁車至夢蓮湖 (Moraine Lake)", tip: "接駁車 Check-in 時間為 10:00，欣賞無與倫比的牛奶藍湖水", url: "https://www.google.com/maps/search/?api=1&query=Moraine+Lake" },
+                    { time: "下午", act: "❄️ 路易絲湖 (Lake Louise) 湖畔悠閒漫步", tip: "湖光山色盡收眼底，晚上入住 Lake Louise Inn", url: "https://www.google.com/maps/search/?api=1&query=Lake+Louise" }
                 ]
             },
             10: {
                 title: "DAY 10 (10/5): 哥倫比亞冰原",
                 desc: "踏上萬年冰川，冰原大道 Tiffany 藍雙湖洗禮",
                 items: [
-                    { time: "上午", act: "❄️ 哥倫比亞冰原冒險 & 冰原天空步道", tip: "搭乘特製巨輪雪車登上阿薩巴斯卡冰河，體驗 Skywalk 天空步道", url: "https://maps.app.goo.gl/FaN4eAFvXdsSwY3W8" },
-                    { time: "下午", act: "🏞️ 弓湖 (Bow Lake) & 佩托湖 (Peyto Lake)", tip: "沿冰原大道返回，捕捉Tiffany藍的夢幻湖泊，夜宿 Canmore Northwinds Hotel", url: "https://maps.app.goo.gl/w1BZSQDWQiSRCsms7" }
+                    { time: "上午", act: "❄️ 哥倫比亞冰原冒險 & 冰原天空步道", tip: "搭乘特製巨輪雪車登上阿薩巴斯卡冰河，體驗 Skywalk 天空步道", url: "https://www.google.com/maps/search/?api=1&query=Columbia+Icefield+Discovery+Centre" },
+                    { time: "下午", act: "🏞️ 弓湖 (Bow Lake) & 佩托湖 (Peyto Lake)", tip: "沿冰原大道返回，捕捉Tiffany藍的夢幻湖泊，夜宿 Canmore Northwinds Hotel", url: "https://www.google.com/maps/search/?api=1&query=Peyto+Lake" }
                 ]
             },
             11: {
@@ -642,7 +644,7 @@
                 desc: "漫步周邊森林湖泊，回到繁華卡加利",
                 items: [
                     { time: "白天", act: "🌲 班夫周邊最後巡禮與輕鬆徒步", tip: "建議可到雙傑克湖 (Two Jack Lake) 走走", url: "https://www.google.com/maps/search/?api=1&query=Two+Jack+Lake" },
-                    { time: "傍晚", act: "🏨 驅車返回卡加利辦理入住", tip: "入住 Hotel 11, MOD A Sonesta Collection，準備隔日跨境飛機", url: "https://www.google.com/maps/search/?api=1&query=Hotel+11+MOD+A+Sonesta+Collection+Calgary" }
+                    { time: "傍晚", act: "🏨 驅車返回卡加利辦理入住", tip: "入住 Hotel 11, MOD A Sonesta Collection，準備隔日跨境飛機", url: "https://www.google.com/maps/search/?api=1&query=Hotel+11+Calgary" }
                 ]
             },
             12: {
@@ -650,9 +652,9 @@
                 desc: "還車飛西雅圖，美國輕軌直達市區",
                 items: [
                     { time: "上午", act: "🏙️ 卡加利市區巡禮與最後紀念品購買", tip: "市區走走看看", url: "https://www.google.com/maps/search/?api=1&query=Calgary+Tower" },
-                    { time: "14:30", act: "🚗 卡加利機場還車", tip: "還至 SIXT 櫃檯，辦理登機", url: "https://maps.app.goo.gl/ooRSkT7HF9kXxsbJ6" },
-                    { time: "17:50", act: "✈️ 搭機飛往西雅圖 (WS1552)", tip: "預計 18:45 抵達 SEA 機場，辦理美國入境手續", url: "https://maps.app.goo.gl/1ihazNW3R172ZpjC7" },
-                    { time: "晚上", act: "🚇 搭乘輕軌 Link Light Rail 前往市區飯店", tip: "從機場搭乘 1 Line 至 Symphony Station 下車步行 5 分鐘至 Crowne Plaza 飯店", url: "https://maps.app.goo.gl/7YZLaSmHtyT6KrabA" }
+                    { time: "14:30", act: "🚗 卡加利機場還車", tip: "還至 SIXT 櫃檯，辦理登機", url: "https://www.google.com/maps/search/?api=1&query=Calgary+Airport+YYC" },
+                    { time: "17:50", act: "✈️ 搭機飛往西雅圖 (WS1552)", tip: "預計 18:45 抵達 SEA 機場，辦理美國入境手續", url: "https://www.google.com/maps/search/?api=1&query=Seattle-Tacoma+International+Airport+SEA" },
+                    { time: "晚上", act: "🚇 搭乘輕軌 Link Light Rail 前往市區飯店", tip: "從機場搭乘 1 Line 至 Symphony Station 下車步行 5 分鐘至 Crowne Plaza 飯店", url: "https://www.google.com/maps/search/?api=1&query=Crowne+Plaza+Seattle+Downtown" }
                 ]
             },
             13: {
@@ -661,7 +663,7 @@
                 items: [
                     { time: "08:30", act: "🥞 悠閒早午餐與派克市場 (Pike Place Market)", tip: "看看飛魚表演、第一家星巴克創始店", url: "https://www.google.com/maps/search/?api=1&query=Pike+Place+Market+Seattle" },
                     { time: "下午", act: "🏙️ 太空針塔 / 市區地標巡禮", tip: "走走拍拍", url: "https://www.google.com/maps/search/?api=1&query=Space+Needle+Seattle" },
-                    { time: "晚上", act: "🚗 搭輕軌前往機場並辦理退稅", tip: "22:00 前往機場辦理登機。搭乘星宇航空 JX31 (10/9 01:15 起飛)，滿載美好回憶返台！", url: "https://maps.app.goo.gl/1ihazNW3R172ZpjC7" }
+                    { time: "晚上", act: "🚗 搭輕軌前往機場並辦理退稅", tip: "22:00 前往機場辦理登機。搭乘星宇航空 JX31 (10/9 01:15 起飛)，滿載美好回憶返台！", url: "https://www.google.com/maps/search/?api=1&query=Seattle-Tacoma+International+Airport+SEA" }
                 ]
             }
         };
@@ -694,15 +696,6 @@
         let currentDay = 1;
         let selectedVoucherFileName = "";
 
-        // ---------------- [ 初始化網頁 ] ----------------
-        window.onload = function() {
-            startCountdown();
-            renderHotels();
-            renderDaySelectors();
-            renderItinerary(1);
-            initChecklist();
-        };
-
         // ---------------- [ 1. 倒數計時功能 ] ----------------
         function startCountdown() {
             const targetDate = new Date("2026/09/26 13:20:00").getTime();
@@ -710,9 +703,12 @@
             function update() {
                 const now = new Date().getTime();
                 const diff = targetDate - now;
+                const countdownEl = document.getElementById("countdown");
+
+                if (!countdownEl) return; // 防禦安全檢查，防範執行階段錯誤
 
                 if (diff <= 0) {
-                    document.getElementById("countdown").innerText = "🎉 祝旅途愉快！出發囉！";
+                    countdownEl.innerText = "🎉 祝旅途愉快！出發囉！";
                     return;
                 }
 
@@ -721,7 +717,7 @@
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-                document.getElementById("countdown").innerHTML = 
+                countdownEl.innerHTML = 
                     `距離啟程還有 <b class="text-white text-sm">${days}</b> 天 <b class="text-white">${hours}</b> 時 <b class="text-white">${minutes}</b> 分 <b class="text-white">${seconds}</b> 秒`;
             }
 
@@ -731,39 +727,38 @@
 
         // ---------------- [ 2. 分頁切換功能 ] ----------------
         function switchTab(tabId) {
-            // 隱藏所有 tab 內容
             document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
-            // 顯示當前 tab
-            document.getElementById(`tab-${tabId}`).classList.remove("hidden");
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) targetTab.classList.remove("hidden");
 
-            // 調整選單按鈕顏色
             document.querySelectorAll("nav button").forEach(el => {
                 el.classList.remove("text-emerald-400");
                 el.classList.add("text-slate-400");
             });
-            document.getElementById(`nav-${tabId}`).classList.remove("text-slate-400");
-            document.getElementById(`nav-${tabId}`).classList.add("text-emerald-400");
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.remove("text-slate-400");
+                activeNav.classList.add("text-emerald-400");
+            }
 
-            // 特殊滾動處理
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ---------------- [ 3. 渲染住宿卡片 ] ----------------
         function renderHotels() {
             const container = document.getElementById("hotel-list-container");
+            if (!container) return; // 防禦性檢查
             container.innerHTML = "";
 
             hotelsData.forEach((hotel, index) => {
                 const card = document.createElement("div");
                 card.className = "bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-3 relative overflow-hidden";
                 
-                // 飯店大圖替代（CSS漸層代表城市）
                 let bgGradient = "from-emerald-950/40 to-teal-900/20";
                 if (hotel.city === "Yellowknife") bgGradient = "from-indigo-950/40 to-cyan-900/20";
                 if (hotel.city === "Canmore") bgGradient = "from-sky-950/40 to-blue-900/20";
                 if (hotel.city === "Seattle") bgGradient = "from-amber-950/40 to-slate-900/20";
 
-                // 自動生成極其精準的 Google 地圖導航搜尋網址 (結合飯店名稱與完整地址)
                 const mapSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotel.name + ' ' + hotel.address)}`;
 
                 card.innerHTML = `
@@ -793,12 +788,10 @@
                             </p>
                         </div>
 
-                        <!-- 互動按鈕群 -->
                         <div class="grid grid-cols-3 gap-2 mt-4 pt-2 border-t border-slate-800/20 text-center">
                             <a href="tel:${hotel.phone}" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center justify-center gap-1">
                                 📞 撥打電話
                             </a>
-                            <!-- 已改為直接開啟 Google 地圖導航連結 -->
                             <a href="${mapSearchUrl}" target="_blank" rel="noopener noreferrer" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center justify-center gap-1">
                                 🗺️ 地圖導航
                             </a>
@@ -815,6 +808,7 @@
         // ---------------- [ 4. 渲染行程天數與內容 ] ----------------
         function renderDaySelectors() {
             const container = document.getElementById("day-selector-container");
+            if (!container) return; // 防禦性檢查
             container.innerHTML = "";
 
             for (let d = 1; d <= 13; d++) {
@@ -827,7 +821,6 @@
                 }`;
                 btn.onclick = () => selectDay(d);
 
-                // 建立 2026/09/26 基準日期物件 (注意：JS 的月份為 0 索引，因此 8 代表 9 月)
                 const dateObj = new Date(2026, 8, 26);
                 dateObj.setDate(dateObj.getDate() + (d - 1));
                 const month = dateObj.getMonth() + 1;
@@ -842,16 +835,17 @@
         }
 
         function selectDay(d) {
-            // 更新上一選取樣式
-            document.getElementById(`select-day-${currentDay}`).className = "flex-shrink-0 w-12 h-12 rounded-full flex flex-col items-center justify-center text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300";
+            const prevBtn = document.getElementById(`select-day-${currentDay}`);
+            if (prevBtn) {
+                prevBtn.className = "flex-shrink-0 w-12 h-12 rounded-full flex flex-col items-center justify-center text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300";
+            }
             
-            // 更新當前選取
             currentDay = d;
-            document.getElementById(`select-day-${currentDay}`).className = "flex-shrink-0 w-12 h-12 rounded-full flex flex-col items-center justify-center text-xs font-bold bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20";
-
-            // 自動橫向滾動選單至可見範圍
-            const btn = document.getElementById(`select-day-${d}`);
-            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            const curBtn = document.getElementById(`select-day-${currentDay}`);
+            if (curBtn) {
+                curBtn.className = "flex-shrink-0 w-12 h-12 rounded-full flex flex-col items-center justify-center text-xs font-bold bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20";
+                curBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
 
             renderItinerary(d);
         }
@@ -860,13 +854,12 @@
             const data = itineraryData[day];
             const detailContainer = document.getElementById("itinerary-detail-card");
 
-            if (!data) return;
+            if (!detailContainer || !data) return; // 防禦性檢查
 
             let itemsHTML = "";
             data.items.forEach(item => {
                 itemsHTML += `
                     <div class="flex gap-4 items-start relative pb-6 last:pb-2 group">
-                        <!-- 時間線裝飾 -->
                         <div class="w-16 flex-shrink-0 text-right">
                             <span class="text-xs font-bold text-slate-400 bg-slate-950 border border-slate-800 px-1.5 py-0.5 rounded">${item.time}</span>
                         </div>
@@ -874,10 +867,8 @@
                             <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 group-hover:scale-125 transition duration-150 z-10"></div>
                             <div class="w-[1px] bg-slate-800 flex-grow mt-1 z-0 absolute top-2.5 bottom-0"></div>
                         </div>
-                        <!-- 行程詳情 -->
                         <div class="flex-grow">
                             <p class="text-sm font-semibold text-slate-100">${item.act}</p>
-                            <!-- 直接使用 a 標籤來開啟 Google 地圖，防止被任何內建瀏覽器阻擋 -->
                             <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="block text-xs text-slate-400 mt-1.5 bg-slate-950/60 hover:bg-slate-900 border border-slate-850 hover:border-emerald-500/40 p-2.5 rounded-xl transition-all duration-200 flex items-center justify-between group/tip shadow-sm">
                                 <span class="flex-grow pr-2">${item.tip}</span>
                                 <span class="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-0.5 flex-shrink-0">
@@ -904,27 +895,27 @@
             `;
         }
 
-        // ---------------- [ 開啟 Google Maps 搜尋 ] ----------------
-        function openGoogleMapsLink(url) {
-            if (!url) return;
-            window.open(url, '_blank');
-        }
-
         // ---------------- [ 5. 互動式憑證視窗控制 ] ----------------
         function openVoucher(title, filename, details) {
-            document.getElementById("modal-title").innerText = title;
-            document.getElementById("modal-filename").innerText = filename;
-            document.getElementById("modal-desc").innerHTML = details.replace(/\n/g, '<br>');
+            const modalTitleEl = document.getElementById("modal-title");
+            const modalFilenameEl = document.getElementById("modal-filename");
+            const modalDescEl = document.getElementById("modal-desc");
+            
+            if (modalTitleEl) modalTitleEl.innerText = title;
+            if (modalFilenameEl) modalFilenameEl.innerText = filename;
+            if (modalDescEl) modalDescEl.innerHTML = details.replace(/\n/g, '<br>');
             selectedVoucherFileName = filename;
 
             const modal = document.getElementById("voucher-modal");
             const content = document.getElementById("modal-content");
 
-            modal.classList.remove("hidden");
-            setTimeout(() => {
-                content.classList.remove("scale-95", "opacity-0");
-                content.classList.add("scale-100", "opacity-100");
-            }, 10);
+            if (modal && content) {
+                modal.classList.remove("hidden");
+                setTimeout(() => {
+                    content.classList.remove("scale-95", "opacity-0");
+                    content.classList.add("scale-100", "opacity-100");
+                }, 10);
+            }
         }
 
         function openHotelVoucher(index) {
@@ -948,25 +939,24 @@
             const modal = document.getElementById("voucher-modal");
             const content = document.getElementById("modal-content");
 
-            content.classList.remove("scale-100", "opacity-100");
-            content.classList.add("scale-95", "opacity-0");
-            setTimeout(() => {
-                modal.classList.add("hidden");
-            }, 300);
+            if (modal && content) {
+                content.classList.remove("scale-100", "opacity-100");
+                content.classList.add("scale-95", "opacity-0");
+                setTimeout(() => {
+                    modal.classList.add("hidden");
+                }, 300);
+            }
         }
 
-        // ---------------- [ 新增：直接在新分頁開啟同路徑 PDF 檔案 ] ----------------
         function openPDFFile() {
             if (!selectedVoucherFileName) return;
             if (selectedVoucherFileName.includes("實體憑證")) {
                 showToast("此為極光套票，無獨立 PDF 檔！");
                 return;
             }
-            // 直接以相對路徑在新視窗開啟同資料夾下的 PDF 
             window.open(selectedVoucherFileName, '_blank');
         }
 
-        // ---------------- [ 剪貼簿複製：相容 iframe 環境 ] ----------------
         function copyToClipboard(text, successMessage) {
             const textarea = document.createElement("textarea");
             textarea.value = text;
@@ -1004,6 +994,7 @@
 
         function renderChecklistGroup(elementId, items) {
             const container = document.getElementById(elementId);
+            if (!container) return; // 防禦性檢查
             container.innerHTML = "";
 
             items.forEach(item => {
@@ -1025,12 +1016,15 @@
             const checkbox = document.getElementById(`chk-${id}`);
             const text = document.getElementById(`txt-${id}`);
             
-            localStorage.setItem(`chk_2026_${id}`, checkbox.checked);
-
-            if (checkbox.checked) {
-                text.classList.add("line-through", "text-slate-500");
-            } else {
-                text.classList.remove("line-through", "text-slate-500");
+            if (checkbox) {
+                localStorage.setItem(`chk_2026_${id}`, checkbox.checked);
+                if (text) {
+                    if (checkbox.checked) {
+                        text.classList.add("line-through", "text-slate-500");
+                    } else {
+                        text.classList.remove("line-through", "text-slate-500");
+                    }
+                }
             }
 
             updateChecklistProgress();
@@ -1047,22 +1041,38 @@
             });
 
             const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
-            document.getElementById("checklist-progress-text").innerText = `${percent}%`;
-            document.getElementById("checklist-progress-bar").style.width = `${percent}%`;
+            const progressText = document.getElementById("checklist-progress-text");
+            const progressBar = document.getElementById("checklist-progress-bar");
+
+            if (progressText) progressText.innerText = `${percent}%`;
+            if (progressBar) progressBar.style.width = `${percent}%`;
         }
 
-        // ---------------- [ 7. Toast 提示提示 ] ----------------
         function showToast(message) {
             const toast = document.getElementById("toast");
-            document.getElementById("toast-text").innerText = message;
-            toast.classList.remove("opacity-0");
-            toast.classList.add("opacity-100");
+            const toastText = document.getElementById("toast-text");
+            
+            if (toast && toastText) {
+                toastText.innerText = message;
+                toast.classList.remove("opacity-0");
+                toast.classList.add("opacity-100");
 
-            setTimeout(() => {
-                toast.classList.remove("opacity-100");
-                toast.classList.add("opacity-0");
-            }, 2500);
+                setTimeout(() => {
+                    toast.classList.remove("opacity-100");
+                    toast.classList.add("opacity-0");
+                }, 2500);
+            }
         }
+
+        // ---------------- [ 網頁初始化載入守護 ] ----------------
+        // 改用 DOMContentLoaded 確保所有 DOM 完全載入後才初始化 JS
+        document.addEventListener("DOMContentLoaded", function() {
+            startCountdown();
+            renderHotels();
+            renderDaySelectors();
+            renderItinerary(1);
+            initChecklist();
+        });
     </script>
 </body>
 </html>
